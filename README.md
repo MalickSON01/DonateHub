@@ -1,82 +1,87 @@
-# 🇧🇫 DonateHub
+# DonateHub 🇧🇫
 
-Plateforme de démonstration pour des campagnes de dons au Burkina Faso, avec simulation de paiement Mobile Money (via une fausse intégration "YengaPay").
+Application web de démonstration pour la création de campagnes de dons et la collecte de fonds via **Mobile Money** au Burkina Faso, avec simulation d'intégration **YengaPay**.
 
-> ⚠️ **Projet de démonstration / prototype.** Aucun vrai paiement n'est effectué, aucune donnée n'est envoyée à un serveur. Tout est stocké **localement dans le navigateur** (`localStorage`). Ne pas utiliser tel quel en production.
+> ⚠️ **Projet de démo** : tout est simulé et stocké localement dans le navigateur (`localStorage`). Aucune donnée n'est envoyée à un serveur, aucun paiement réel n'est effectué.
 
----
+## ✨ Fonctionnalités
+
+- 📋 **Consultation libre** des campagnes et de leur historique de dons (aucune connexion requise)
+- ❤️ **Don libre** sur n'importe quelle campagne, avec ou sans compte
+- 🔐 **Authentification** (inscription / connexion par numéro de téléphone) requise uniquement pour créer une campagne
+- ➕ **Création de campagne** avec titre, description, objectif, image et informations de reversement
+- 📲 **Simulation de paiement Mobile Money** (flux `ONE_STEP` et `TWO_STEP` selon l'opérateur, avec OTP ou validation USSD)
+- 💸 **Reversement (payout)** simulé au créateur d'une campagne, avec calcul de commission et de frais
+- 📄 **Détail de campagne** avec historique complet des dons
+- 🧾 Persistance locale (`localStorage`) des campagnes, dons et comptes utilisateurs
+
+## 🏦 Opérateurs Mobile Money simulés
+
+| Opérateur | Flux |
+|---|---|
+| 🟠 Orange Money | ONE_STEP |
+| 🟣 Telecel Money | ONE_STEP |
+| 🔵 Moov Money | TWO_STEP (OTP) |
+| 🟢 Sank Money | TWO_STEP (OTP) |
+| 🟡 Coris Money | TWO_STEP (OTP) |
 
 ## 📁 Structure du projet
 
 ```
 donatehub/
-├── index.html   → Structure de la page (HTML)
-├── style.css    → Mise en forme (CSS)
-├── script.js    → Logique de l'application (JavaScript)
-└── README.md    → Ce fichier
+├── index.html            # Structure HTML (page unique, modales, formulaires)
+├── style.css             # Styles de l'application
+├── scripts/
+│   ├── core.js           # Données, utilitaires, authentification, onglets
+│   └── campaigns.js      # Campagnes, dons, simulation de paiement, reversement, init
+└── README.md             # Ce fichier
 ```
 
-Les trois fichiers doivent rester dans le **même dossier** : `index.html` charge `style.css` et `script.js` par chemin relatif.
+### `core.js`
+Contient les fondations de l'application, chargées en premier :
+- **Données** : le tableau `campaigns` (état de l'app) et les valeurs par défaut
+- **Utilitaires** : formatage des montants, dates relatives, notifications (toast)
+- **Validation de formulaire** : affichage/suppression des messages d'erreur
+- **Champs montant** : formatage automatique des saisies numériques (ex: `50 000`)
+- **Gestion des utilisateurs** : stockage local des comptes (`donatehub_users`)
+- **Authentification** : inscription, connexion, déconnexion, barre d'authentification, modale de connexion
+- **Navigation par onglets** : basculement entre la liste des campagnes et le formulaire de création
 
-## ▶️ Lancer le projet
+### `campaigns.js`
+Contient la logique métier de l'application, chargée après `core.js` :
+- **Image de campagne** : prévisualisation et suppression de l'image choisie
+- **Affichage** : rendu de la liste des campagnes et de leur barre de progression
+- **Création de campagne** : validation et enregistrement d'une nouvelle campagne
+- **Don** : ouverture de la modale de don, sélection de l'opérateur
+- **Simulation de paiement** : étapes animées imitant l'appel à l'API YengaPay (connexion, authentification, initiation, OTP ou validation USSD)
+- **Reversement (payout)** : calcul de la commission et des frais, simulation du transfert au créateur
+- **Détail de campagne** : historique complet des dons
+- **Initialisation** : premier rendu de l'application au chargement de la page
 
-Aucune installation n'est nécessaire — c'est du HTML/CSS/JS pur, sans dépendance ni build.
+> ⚠️ **Ordre de chargement important** : `core.js` doit être chargé **avant** `campaigns.js` dans `index.html`, car `campaigns.js` utilise les variables et fonctions définies dans `core.js` (données, authentification, utilitaires).
 
-Il suffit d'ouvrir `index.html` dans un navigateur (double-clic, ou clic droit → "Ouvrir avec" → navigateur).
+```html
+<script src="scripts/core.js"></script>
+<script src="scripts/campaigns.js"></script>
+```
 
-## ✨ Fonctionnalités
+## 🚀 Utilisation
 
-### Consultation & dons (accès libre, sans compte)
-- Parcourir la liste des campagnes actives
-- Voir le détail d'une campagne : description, progression, historique des dons
-- Faire un don, avec simulation complète du parcours de paiement Mobile Money :
-  - Choix de l'opérateur (Orange Money, Moov Money, Sank Money, Coris Money, Telecel Money)
-  - Simulation **ONE_STEP** (validation USSD) pour Orange et Telecel
-  - Simulation **TWO_STEP** (code OTP par SMS) pour Moov, Sank et Coris
-  - Génération d'un identifiant de transaction fictif
+1. Télécharger les fichiers `index.html`, `style.css`, `core.js` et `campaigns.js` dans un même dossier
+2. Ouvrir `index.html` dans un navigateur (aucun serveur ni installation requise)
+3. Parcourir les campagnes, faire un don, ou créer un compte pour lancer une campagne
 
-### Création de campagne (compte requis)
-- Le bouton **"Créer une campagne"** est accessible à tout moment, mais redirige vers une modale **Connexion / Inscription** si l'utilisateur n'est pas connecté
-- Après connexion ou inscription réussie, l'utilisateur est automatiquement renvoyé vers le formulaire de création
-- Formulaire de campagne : titre, description, objectif (XOF), nom du porteur, numéro Mobile Money de reversement, opérateur, image
-- **Image de la campagne** : sélection directe depuis la galerie de l'appareil (`input type="file"`), avec aperçu ; si aucune image n'est choisie, une image par défaut générée localement (SVG) est utilisée
+## 🗄️ Stockage local
 
-### Compte utilisateur
-- Inscription et connexion par **numéro de téléphone + mot de passe**
-- Les comptes sont stockés dans une "base de données" JSON côté navigateur (`localStorage`, clé `donatehub_users`)
-- Bouton 👁️ pour afficher/masquer le mot de passe saisi
-- Erreurs de validation affichées **directement sous le champ concerné** (bordure rouge + message), plutôt que dans une notification générique
-- Un utilisateur connecté ne peut gérer (voir le badge "Votre campagne", déclencher le reversement) que les campagnes créées avec son propre numéro
+L'application utilise trois clés `localStorage` :
 
-### Reversement (payout)
-- Le créateur d'une campagne peut déclencher un reversement simulé une fois qu'un minimum a été collecté
-- Détail du calcul affiché : montant collecté, commission (5 %), frais Mobile Money (~1,5 %), montant net reversé
+| Clé | Contenu |
+|---|---|
+| `donatehub_campaigns` | Liste des campagnes et de leurs dons |
+| `donatehub_user` | Session de l'utilisateur actuellement connecté |
+| `donatehub_users` | Base des comptes inscrits (téléphone + mot de passe) |
 
-### Confort de saisie
-- Les champs de montant (objectif de campagne, montant du don) formatent automatiquement les chiffres saisis avec des espaces (ex. `50000` → `50 000`) pour une meilleure lisibilité
+## 🛠️ Stack technique
 
-## 💾 Données & stockage
-
-Tout est conservé dans le `localStorage` du navigateur, sous ces clés :
-
-| Clé                     | Contenu                                      |
-|-------------------------|-----------------------------------------------|
-| `donatehub_campaigns`   | Liste des campagnes et de leurs dons          |
-| `donatehub_users`       | Comptes inscrits (numéro + mot de passe)      |
-| `donatehub_user`        | Session de l'utilisateur actuellement connecté |
-
-Pour repartir de zéro : vider le `localStorage` du site (ou ouvrir la page en navigation privée).
-
-## 🔐 Limites connues (démo)
-
-- Les mots de passe sont stockés **en clair** dans le `localStorage` (pas de hachage) — acceptable uniquement pour une démo locale.
-- Aucune vérification serveur : toute personne ayant accès au navigateur peut lire ces données via les outils de développement.
-- Les paiements et reversements sont **entièrement simulés** (aucun appel réseau réel vers un opérateur Mobile Money).
-- Les images de campagne (base64) sont stockées dans le `localStorage`, dont la capacité est limitée (quelques Mo) — à surveiller si beaucoup de campagnes/images sont créées.
-
-## 🚀 Pistes d'évolution (hors périmètre de cette démo)
-
-- Backend réel avec base de données et hachage des mots de passe
-- Vraie intégration API Mobile Money
-- Upload d'image vers un service de stockage (au lieu du base64 en local)
-- Authentification par token / session sécurisée
+- HTML / CSS / JavaScript vanilla (aucune dépendance, aucun build)
+- Stockage via `localStorage` du navigateur
