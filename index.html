@@ -5,18 +5,132 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DonateHub - Campagnes de dons Burkina Faso</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== ICONS SYSTEM ===== */
+    .icon { display:inline-flex; align-items:center; justify-content:center; width:1em; height:1em; vertical-align:middle; flex-shrink:0; }
+    .icon svg { width:100%; height:100%; }
+
+    /* Burkina Faso Flag */
+    .icon-flag { width:40px; height:26px; border-radius:3px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.2); }
+    .icon-flag svg { width:100%; height:100%; display:block; }
+
+    /* Colored operator dots */
+    .op-dot { width:14px; height:14px; border-radius:50%; display:inline-block; }
+    .op-dot.orange { background:linear-gradient(135deg,#ff9800,#f57c00); }
+    .op-dot.blue { background:linear-gradient(135deg,#2196f3,#1565c0); }
+    .op-dot.green { background:linear-gradient(135deg,#4caf50,#2e7d32); }
+    .op-dot.yellow { background:linear-gradient(135deg,#ffeb3b,#fbc02d); }
+    .op-dot.purple { background:linear-gradient(135deg,#9c27b0,#6a1b9a); }
+
+    /* Campaign card icon */
+    .icon-campaign { width:20px; height:20px; color:#16213e; }
+
+    /* Plus icon */
+    .icon-plus { width:16px; height:16px; }
+    .icon-plus svg line { stroke:currentColor; stroke-width:2; stroke-linecap:round; }
+
+    /* Rocket icon */
+    .icon-rocket { width:20px; height:20px; color:#e94560; }
+
+    /* Image icon */
+    .icon-image { width:32px; height:32px; color:#888; }
+
+    /* Lock icons */
+    .icon-lock { width:18px; height:18px; color:#16213e; }
+    .icon-unlock { width:18px; height:18px; color:#fff; }
+
+    /* Heart icon */
+    .icon-heart { width:18px; height:18px; color:#e94560; }
+
+    /* Mobile/Payment */
+    .icon-mobile { width:18px; height:18px; color:#fff; }
+
+    /* SMS/Envelope */
+    .icon-sms { width:18px; height:18px; color:#16213e; }
+
+    /* Phone */
+    .icon-phone { width:18px; height:18px; color:#16213e; }
+
+    /* Checkmark */
+    .icon-check { width:20px; height:20px; color:#fff; }
+    .icon-check-sm { width:14px; height:14px; color:#4caf50; }
+
+    /* Close X */
+    .icon-close { width:20px; height:20px; color:#888; cursor:pointer; }
+    .icon-close:hover { color:#e94560; }
+    .icon-close-sm { width:12px; height:12px; color:#fff; }
+
+    /* Eye */
+    .icon-eye { width:18px; height:18px; color:#888; cursor:pointer; }
+    .icon-eye:hover { color:#16213e; }
+
+    /* Money */
+    .icon-money { width:20px; height:20px; color:#4caf50; }
+    .icon-money-sm { width:16px; height:16px; color:#4caf50; }
+
+    /* Building */
+    .icon-building { width:16px; height:16px; color:#888; }
+
+    /* Upload/Arrow */
+    .icon-upload { width:16px; height:16px; color:#888; }
+
+    /* Target */
+    .icon-target { width:16px; height:16px; color:#e94560; }
+
+    /* Empty mailbox */
+    .icon-empty { width:48px; height:48px; color:#ccc; }
+
+    /* Success circle */
+    .success-ring { width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,#4caf50,#2e7d32); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; box-shadow:0 4px 12px rgba(76,175,80,0.3); }
+    .success-ring .icon-check { width:32px; height:32px; }
+
+    /* Payout success */
+    .payout-ring { width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,#4caf50,#2e7d32); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; box-shadow:0 4px 12px rgba(76,175,80,0.3); }
+    .payout-ring .icon-money { width:32px; height:32px; color:#fff; }
+
+    /* Operator card icons */
+    .op-icon-wrap { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:6px; }
+    .op-icon-wrap.orange { background:rgba(255,152,0,0.15); }
+    .op-icon-wrap.blue { background:rgba(33,150,243,0.15); }
+    .op-icon-wrap.green { background:rgba(76,175,80,0.15); }
+    .op-icon-wrap.yellow { background:rgba(255,235,59,0.15); }
+    .op-icon-wrap.purple { background:rgba(156,39,176,0.15); }
+    .op-icon-wrap .op-dot { width:12px; height:12px; }
+
+    /* Auth tabs */
+    .auth-toggle button { display:inline-flex; align-items:center; gap:6px; }
+  </style>
+<base target="_blank">
 <base target="_blank">
 </head>
 <body>
   <div id="app">
     <!-- Header -->
     <div class="header">
-      <div class="header-flag">🇧🇫</div>
+      <div class="header-flag">
+        <div class="icon icon-flag">
+          <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg">
+            <rect width="60" height="20" fill="#ef2b2d"/>
+            <rect y="20" width="60" height="20" fill="#009e49"/>
+            <polygon points="30,12 31.5,16.5 36.5,16.5 32.5,19.5 34,24 30,21 26,24 27.5,19.5 23.5,16.5 28.5,16.5" fill="#fcd116"/>
+          </svg>
+        </div>
+      </div>
       <h1>DonateHub</h1>
       <p>Campagnes de dons · Burkina Faso · 5 opérateurs Mobile Money</p>
       <div class="header-nav">
-        <button onclick="showTab('campaigns')" id="btn-campaigns" class="btn btn-primary">📋 Campagnes</button>
-        <button onclick="handleCreateClick()" id="btn-create" class="btn btn-outline">➕ Créer une campagne</button>
+        <button onclick="showTab('campaigns')" id="btn-campaigns" class="btn btn-primary">
+          <span class="icon icon-campaign">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </span>
+          Campagnes
+        </button>
+        <button onclick="handleCreateClick()" id="btn-create" class="btn btn-outline">
+          <span class="icon icon-plus">
+            <svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+          Créer une campagne
+        </button>
       </div>
     </div>
 
@@ -27,7 +141,11 @@
     <div id="tab-campaigns">
       <div id="campaigns-list" class="campaigns-list"></div>
       <div id="no-campaigns" class="empty-state" style="display:none;">
-        <div class="empty-state-icon">📭</div>
+        <div class="empty-state-icon">
+          <span class="icon icon-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </span>
+        </div>
         <p>Aucune campagne pour le moment.<br>Créez la première !</p>
       </div>
     </div>
@@ -35,7 +153,12 @@
     <!-- Tab: Create -->
     <div id="tab-create" style="display:none;">
       <div class="card" style="max-width:520px; margin:0 auto;">
-        <h2 style="margin-top:0; color:#16213e; font-size:20px;">🚀 Nouvelle campagne</h2>
+        <h2 style="margin-top:0; color:#16213e; font-size:20px; display:flex; align-items:center; gap:8px;">
+          <span class="icon icon-rocket">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+          </span>
+          Nouvelle campagne
+        </h2>
         <form id="create-form" onsubmit="createCampaign(event)">
           <div class="form-group">
             <label class="form-label">Titre de la campagne</label>
@@ -65,25 +188,49 @@
           <div class="form-group">
             <label class="form-label">Opérateur pour le reversement</label>
             <select id="c-operator" class="form-select">
-              <option value="ORANGE_MONEY">🟠 Orange Money</option>
-              <option value="MOOV_MONEY">🔵 Moov Money</option>
-              <option value="SANK_MONEY">🟢 Sank Money</option>
-              <option value="CORIS_MONEY">🟡 Coris Money</option>
-              <option value="TELECEL_MONEY">🟣 Telecel Money</option>
+              <option value="ORANGE_MONEY">
+                <span class="op-dot orange"></span> Orange Money
+              </option>
+              <option value="MOOV_MONEY">
+                <span class="op-dot blue"></span> Moov Money
+              </option>
+              <option value="SANK_MONEY">
+                <span class="op-dot green"></span> Sank Money
+              </option>
+              <option value="CORIS_MONEY">
+                <span class="op-dot yellow"></span> Coris Money
+              </option>
+              <option value="TELECEL_MONEY">
+                <span class="op-dot purple"></span> Telecel Money
+              </option>
             </select>
           </div>
           <div class="form-group">
             <label class="form-label">Image de la campagne</label>
             <label class="image-picker" for="c-image-file">
-              <div class="image-picker-icon">🖼️</div>
+              <div class="image-picker-icon">
+                <span class="icon icon-image">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </span>
+              </div>
               <div class="image-picker-text">Choisir une image depuis la galerie</div>
               <input type="file" id="c-image-file" accept="image/*" onchange="previewImage(event)">
             </label>
             <div class="form-hint">Optionnel — une image par défaut sera utilisée si vous n'en choisissez pas</div>
             <img id="c-image-preview" class="image-preview">
-            <button type="button" id="c-image-remove" class="image-preview-remove" onclick="clearImage()">✕ Retirer l'image</button>
+            <button type="button" id="c-image-remove" class="image-preview-remove" onclick="clearImage()">
+              <span class="icon icon-close-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </span>
+              Retirer l'image
+            </button>
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%; padding:14px; font-size:15px;">🚀 Lancer la campagne</button>
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:14px; font-size:15px; display:flex; align-items:center; justify-content:center; gap:8px;">
+            <span class="icon icon-rocket">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+            </span>
+            Lancer la campagne
+          </button>
         </form>
       </div>
     </div>
@@ -94,15 +241,34 @@
     <div class="modal-box">
       <div class="modal-header">
         <div>
-          <h3>🔐 Accès créateur</h3>
+          <h3 style="display:flex; align-items:center; gap:8px;">
+            <span class="icon icon-lock">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
+            Accès créateur
+          </h3>
           <p>Connectez-vous ou inscrivez-vous pour créer une campagne</p>
         </div>
-        <button onclick="closeAuthModal()" class="modal-close">×</button>
+        <button onclick="closeAuthModal()" class="modal-close" aria-label="Fermer">
+          <span class="icon icon-close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </span>
+        </button>
       </div>
       <div class="modal-body">
         <div class="auth-toggle">
-          <button type="button" id="auth-tab-login" class="active" onclick="switchAuthMode('login')">Connexion</button>
-          <button type="button" id="auth-tab-register" onclick="switchAuthMode('register')">Inscription</button>
+          <button type="button" id="auth-tab-login" class="active" onclick="switchAuthMode('login')">
+            <span class="icon icon-unlock">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+            </span>
+            Connexion
+          </button>
+          <button type="button" id="auth-tab-register" onclick="switchAuthMode('register')">
+            <span class="icon icon-plus">
+              <svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+            Inscription
+          </button>
         </div>
 
         <form id="auth-form-login" onsubmit="loginUserSubmit(event)">
@@ -115,11 +281,20 @@
             <label class="form-label">Mot de passe</label>
             <div class="password-wrap">
               <input type="password" id="login-password" required placeholder="••••••••" class="form-input">
-              <button type="button" class="password-toggle" onclick="togglePassword('login-password', this)" aria-label="Afficher le mot de passe">👁️</button>
+              <button type="button" class="password-toggle" onclick="togglePassword('login-password', this)" aria-label="Afficher le mot de passe">
+                <span class="icon icon-eye">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </span>
+              </button>
             </div>
             <div class="form-error" id="err-login-password"></div>
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%; padding:14px; font-size:15px;">🔓 Se connecter</button>
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:14px; font-size:15px; display:flex; align-items:center; justify-content:center; gap:8px;">
+            <span class="icon icon-unlock">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+            </span>
+            Se connecter
+          </button>
         </form>
 
         <form id="auth-form-register" onsubmit="registerUser(event)" style="display:none;">
@@ -132,7 +307,11 @@
             <label class="form-label">Mot de passe</label>
             <div class="password-wrap">
               <input type="password" id="register-password" required minlength="4" placeholder="Min. 4 caractères" class="form-input">
-              <button type="button" class="password-toggle" onclick="togglePassword('register-password', this)" aria-label="Afficher le mot de passe">👁️</button>
+              <button type="button" class="password-toggle" onclick="togglePassword('register-password', this)" aria-label="Afficher le mot de passe">
+                <span class="icon icon-eye">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </span>
+              </button>
             </div>
             <div class="form-error" id="err-register-password"></div>
           </div>
@@ -140,11 +319,20 @@
             <label class="form-label">Confirmer le mot de passe</label>
             <div class="password-wrap">
               <input type="password" id="register-password-confirm" required minlength="4" placeholder="••••••••" class="form-input">
-              <button type="button" class="password-toggle" onclick="togglePassword('register-password-confirm', this)" aria-label="Afficher le mot de passe">👁️</button>
+              <button type="button" class="password-toggle" onclick="togglePassword('register-password-confirm', this)" aria-label="Afficher le mot de passe">
+                <span class="icon icon-eye">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </span>
+              </button>
             </div>
             <div class="form-error" id="err-register-password-confirm"></div>
           </div>
-          <button type="submit" class="btn btn-purple" style="width:100%; padding:14px; font-size:15px;">🚀 S'inscrire</button>
+          <button type="submit" class="btn btn-purple" style="width:100%; padding:14px; font-size:15px; display:flex; align-items:center; justify-content:center; gap:8px;">
+            <span class="icon icon-rocket">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+            </span>
+            S'inscrire
+          </button>
         </form>
 
         <p style="margin-top:14px; font-size:11px; color:#888; text-align:center;">Démo locale — les identifiants sont stockés uniquement dans votre navigateur (localStorage), pas sur un serveur.</p>
@@ -157,10 +345,19 @@
     <div class="modal-box">
       <div class="modal-header">
         <div>
-          <h3>❤️ Faire un don</h3>
+          <h3 style="display:flex; align-items:center; gap:8px;">
+            <span class="icon icon-heart">
+              <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </span>
+            Faire un don
+          </h3>
           <p id="donate-campaign-name"></p>
         </div>
-        <button onclick="closeDonate()" class="modal-close">×</button>
+        <button onclick="closeDonate()" class="modal-close" aria-label="Fermer">
+          <span class="icon icon-close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </span>
+        </button>
       </div>
       <div class="modal-body">
         <!-- Step 1: Form -->
@@ -180,27 +377,27 @@
             <label class="form-label">Choisir votre opérateur</label>
             <div class="op-grid">
               <div onclick="selectOp(this,'ORANGE')" class="op-card active" data-op="ORANGE">
-                <div class="op-card-icon">🟠</div>
+                <div class="op-icon-wrap orange"><span class="op-dot orange"></span></div>
                 <div class="op-card-name">Orange Money</div>
                 <div class="op-card-flow">ONE_STEP</div>
               </div>
               <div onclick="selectOp(this,'MOOV')" class="op-card" data-op="MOOV">
-                <div class="op-card-icon">🔵</div>
+                <div class="op-icon-wrap blue"><span class="op-dot blue"></span></div>
                 <div class="op-card-name">Moov Money</div>
                 <div class="op-card-flow">TWO_STEP</div>
               </div>
               <div onclick="selectOp(this,'SANKM')" class="op-card" data-op="SANKM">
-                <div class="op-card-icon">🟢</div>
+                <div class="op-icon-wrap green"><span class="op-dot green"></span></div>
                 <div class="op-card-name">Sank Money</div>
                 <div class="op-card-flow">TWO_STEP</div>
               </div>
               <div onclick="selectOp(this,'CORISM')" class="op-card" data-op="CORISM">
-                <div class="op-card-icon">🟡</div>
+                <div class="op-icon-wrap yellow"><span class="op-dot yellow"></span></div>
                 <div class="op-card-name">Coris Money</div>
                 <div class="op-card-flow">TWO_STEP</div>
               </div>
               <div onclick="selectOp(this,'TELECEL')" class="op-card op-card-full" data-op="TELECEL">
-                <div class="op-card-icon">🟣</div>
+                <div class="op-icon-wrap purple"><span class="op-dot purple"></span></div>
                 <div class="op-card-name">Telecel Money</div>
                 <div class="op-card-flow">ONE_STEP</div>
               </div>
@@ -215,7 +412,12 @@
             <input type="checkbox" id="d-anonymous">
             <label for="d-anonymous">Faire ce don anonymement</label>
           </div>
-          <button onclick="startPaymentSimulation()" class="btn btn-purple" style="width:100%; padding:14px; font-size:15px;">📲 Payer avec YengaPay</button>
+          <button onclick="startPaymentSimulation()" class="btn btn-purple" style="width:100%; padding:14px; font-size:15px; display:flex; align-items:center; justify-content:center; gap:8px;">
+            <span class="icon icon-mobile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            </span>
+            Payer avec YengaPay
+          </button>
         </div>
 
         <!-- Step 2: Simulation -->
@@ -226,29 +428,51 @@
 
           <div id="sim-otp-section" style="display:none;">
             <div class="sim-otp-box">
-              <div class="sim-otp-box-title">📩 Code OTP envoyé par SMS</div>
+              <div class="sim-otp-box-title" style="display:flex; align-items:center; gap:6px;">
+                <span class="icon icon-sms">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </span>
+                Code OTP envoyé par SMS
+              </div>
               <div class="sim-otp-box-text">Un code a été envoyé à votre numéro <strong id="sim-phone-display"></strong>. Saisissez-le ci-dessous.</div>
             </div>
             <input type="text" id="sim-otp-input" placeholder="123456" maxlength="6" class="form-input" style="letter-spacing:8px; text-align:center; font-weight:700; font-size:18px; margin-bottom:14px;">
-            <button onclick="confirmOTP()" class="btn btn-purple" style="width:100%; padding:14px; font-size:15px;">✅ Confirmer le paiement</button>
+            <button onclick="confirmOTP()" class="btn btn-purple" style="width:100%; padding:14px; font-size:15px; display:flex; align-items:center; justify-content:center; gap:8px;">
+              <span class="icon icon-check-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              Confirmer le paiement
+            </button>
           </div>
 
           <div id="sim-onestep-section" style="display:none;">
             <div class="sim-ussd-box">
-              <div class="sim-ussd-title">📱 Validation ONE_STEP</div>
+              <div class="sim-ussd-title" style="display:flex; align-items:center; gap:6px;">
+                <span class="icon icon-phone">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                </span>
+                Validation ONE_STEP
+              </div>
               <div class="sim-ussd-text">Validez le paiement sur votre téléphone <strong id="sim-phone-display-2"></strong></div>
               <div class="sim-ussd-code">
                 <span style="color:#888; font-size:11px;">USSD:</span> *144*4*6*<span id="sim-amount-ussd"></span>#
               </div>
             </div>
-            <button onclick="confirmOneStep()" class="btn btn-green" style="width:100%; padding:14px; font-size:15px;">✅ J'ai validé sur mon téléphone</button>
+            <button onclick="confirmOneStep()" class="btn btn-green" style="width:100%; padding:14px; font-size:15px; display:flex; align-items:center; justify-content:center; gap:8px;">
+              <span class="icon icon-check-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              J'ai validé sur mon téléphone
+            </button>
           </div>
         </div>
 
         <!-- Step 3: Success -->
         <div id="don-step-3" style="display:none;" class="sim-success">
-          <div class="sim-success-circle">
-            <div class="sim-success-icon">✅</div>
+          <div class="success-ring">
+            <span class="icon icon-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
           </div>
           <div class="sim-success-title">Paiement confirmé !</div>
           <div class="sim-success-tx">Transaction: <span class="sim-success-tx-id" id="success-tx-id"></span></div>
@@ -264,7 +488,11 @@
   <!-- Modal: Detail -->
   <div id="detail-modal" class="modal-overlay">
     <div class="modal-box modal-box-lg">
-      <button onclick="closeDetail()" class="modal-close-abs">×</button>
+      <button onclick="closeDetail()" class="modal-close-abs" aria-label="Fermer">
+        <span class="icon icon-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </span>
+      </button>
       <div id="detail-content"></div>
     </div>
   </div>
@@ -272,27 +500,56 @@
   <!-- Modal: Payout -->
   <div id="payout-modal" class="modal-overlay">
     <div class="modal-box">
-      <button onclick="closePayout()" class="modal-close" style="position:absolute; top:14px; right:16px;">×</button>
+      <button onclick="closePayout()" class="modal-close" style="position:absolute; top:14px; right:16px;" aria-label="Fermer">
+        <span class="icon icon-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </span>
+      </button>
       <div class="modal-body">
-        <h3 style="margin:0 0 6px 0; font-size:17px; color:#16213e;">💸 Reversement au créateur</h3>
+        <h3 style="margin:0 0 6px 0; font-size:17px; color:#16213e; display:flex; align-items:center; gap:8px;">
+          <span class="icon icon-money">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </span>
+          Reversement au créateur
+        </h3>
         <p id="payout-campaign-name" style="margin:0 0 16px 0; color:#888; font-size:12px;"></p>
 
         <div class="payout-summary">
           <div class="payout-row">
-            <span class="payout-row-label">💰 Collecté</span>
+            <span class="payout-row-label" style="display:flex; align-items:center; gap:6px;">
+              <span class="icon icon-money-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </span>
+              Collecté
+            </span>
             <span class="payout-row-value raised" id="p-raised">0 XOF</span>
           </div>
           <div class="payout-row">
-            <span class="payout-row-label">🏛️ Commission (5%)</span>
+            <span class="payout-row-label" style="display:flex; align-items:center; gap:6px;">
+              <span class="icon icon-building">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 21v-6h6v6"/></svg>
+              </span>
+              Commission (5%)
+            </span>
             <span class="payout-row-value commission" id="p-commission">0 XOF</span>
           </div>
           <div class="payout-row">
-            <span class="payout-row-label">📤 Frais YengaPay (~1,5%)</span>
+            <span class="payout-row-label" style="display:flex; align-items:center; gap:6px;">
+              <span class="icon icon-upload">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              </span>
+              Frais YengaPay (~1,5%)
+            </span>
             <span class="payout-row-value fees" id="p-fees">0 XOF</span>
           </div>
           <div class="payout-divider"></div>
           <div class="payout-total">
-            <span class="payout-total-label">🎯 Net reversé</span>
+            <span class="payout-total-label" style="display:flex; align-items:center; gap:6px;">
+              <span class="icon icon-target">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              </span>
+              Net reversé
+            </span>
             <span class="payout-total-value" id="p-net">0 XOF</span>
           </div>
         </div>
@@ -312,7 +569,12 @@
           <div class="payout-info-value" id="p-dest-op"></div>
         </div>
 
-        <button onclick="executePayoutSimulation()" class="btn btn-green" style="width:100%; padding:14px; font-size:15px;">🚀 Lancer le reversement</button>
+        <button onclick="executePayoutSimulation()" class="btn btn-green" style="width:100%; padding:14px; font-size:15px; display:flex; align-items:center; justify-content:center; gap:8px;">
+          <span class="icon icon-rocket">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+          </span>
+          Lancer le reversement
+        </button>
         <p style="margin:10px 0 0 0; font-size:11px; color:#888; text-align:center;">Simulation — aucun vrai transfert</p>
       </div>
     </div>
@@ -322,8 +584,10 @@
   <div id="payout-success-modal" class="modal-overlay payout-success-modal">
     <div class="modal-box modal-box-sm">
       <div class="modal-body">
-        <div class="payout-success-circle">
-          <div class="payout-success-icon">💸</div>
+        <div class="payout-ring">
+          <span class="icon icon-money">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </span>
         </div>
         <div class="payout-success-title">Reversement envoyé !</div>
         <div class="payout-success-id">ID: <span id="payout-success-id"></span></div>
@@ -336,6 +600,7 @@
   <!-- Toast -->
   <div id="toast" class="toast"></div>
 
-  <script src="app.js"></script>
+  <script src="campaign.js"></script>
+  <script src="core.js"></script>
 </body>
 </html>
